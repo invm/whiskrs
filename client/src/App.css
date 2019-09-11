@@ -48,8 +48,8 @@ ul {
 
 .fade-enter-active {
   opacity: 1;
-  -webkit-transition: opacity 300ms ease-in;
-  transition: opacity 300ms ease-in;
+  -webkit-transition: opacity 0.1s ease-in;
+  transition: opacity 0.1s ease-in;
 }
 
 .fade-exit {
@@ -57,13 +57,13 @@ ul {
 }
 
 .fade-exit-active {
-  -webkit-transition: opacity 300ms ease-in;
-  transition: opacity 300ms ease-in;
+  -webkit-transition: opacity 0.1s ease-in;
+  transition: opacity 0.1s ease-in;
   opacity: 0.01;
 }
 
 .remove-btn {
-  margin-right: 0.5rem;
+  margin-right: 0.5rem !important;
 }
 
 .register-form,

@@ -3,22 +3,22 @@ const mongoose = require('mongoose');
 const config = require('config');
 const path = require('path');
 
-const users = require('./routes/api/users');
+// const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
-const auth = require('./routes/api/auth');
+// const auth = require('./routes/api/auth');
 
 const app = express();
 
 app.use(express.json());
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*' /* 'http://localhost:3000' */); // update to match the domain you will make the request from
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*' /* 'http://localhost:3000' */); // update to match the domain you will make the request from
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 const db = config.get('mongoURI');
 
@@ -29,9 +29,9 @@ mongoose
 
 // Use routes
 
-app.use('/api/users', users);
+// app.use('/api/users', users);
 app.use('/api/posts', posts);
-app.use('/api/auth', auth);
+// app.use('/api/auth', auth);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {

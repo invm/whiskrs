@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 import {
   Button,
   Modal,
@@ -22,7 +21,6 @@ class PostModal extends Component {
   onSubmit = e => {
     e.preventDefault();
     const newPost = {
-      id: uuid(),
       body: this.state.body
     };
     // Add post via addPost action

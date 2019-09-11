@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middleware/auth');
+// const auth = require('../../middleware/auth');
 
 // Post model
 
@@ -19,30 +19,27 @@ router.get('/', (req, res) => {
 // @route POST api/posts
 // @desc Create a post
 // @access Private
-router.post('/', auth, (req, res) => {
-  const post = new Post({
-    userId: req.body.userId,
-    body: req.body.body
-  });
-  post.save().then(item => res.json(item));
-});
+router.post(
+  '/',
+  /* auth, */ (req, res) => {
+    const post = new Post({
+      userId: req.body.userId,
+      body: req.body.body
+    });
+    post.save().then(item => res.json(item));
+  }
+);
 
 // @route DELETE api/posts:id
 // @desc Delete a post
 // @access Private
-router.delete('/:id', auth, (req, res) => {
-  Post.findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({ success: true })))
-    .catch(err => res.status(404).json({ success: false }));
-});
-
-// @route PUT api/posts:id
-// @desc Updates a post
-// @access Private
-router.put('/:id', auth, (req, res) => {
-  Post.findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({ success: true })))
-    .catch(err => res.status(404).json({ success: false }));
-});
+router.delete(
+  '/:id',
+  /* auth, */ (req, res) => {
+    Post.findById(req.params.id)
+      .then(item => item.remove().then(() => res.json({ success: true })))
+      .catch(err => res.status(404).json({ success: false }));
+  }
+);
 
 module.exports = router;

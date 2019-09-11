@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React from 'react';
 import { ListGroupItem, Button } from 'reactstrap';
+import { CSSTransition } from 'react-transition-group';
 
-const PostItem = ({ id, body, index, updatePost, removePost }) => {
+const PostItem = ({ _id, body, removePost }) => {
   return (
-    <CSSTransition key={id} timeout={500} classNames='fade'>
+    <CSSTransition key={_id} timeout={500} classNames='fade'>
       <ListGroupItem className='my-1 rounded'>
         <Button
           className='remove-btn'
           color='danger'
           size='sm'
-          onClick={() => removePost(id)}>
+          onClick={() => removePost(_id)}>
           &times;
         </Button>
-        <Button
-          className='remove-btn'
-          color='info'
-          size='sm'
-          onClick={() => updatePost(index)}>
-          &#10227;
-        </Button>
-
         {body}
       </ListGroupItem>
     </CSSTransition>
