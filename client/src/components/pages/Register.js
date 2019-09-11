@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 
 import Spinner from '../layout/Spinner';
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
-  const [registed, setRegisted] = useState(null);
+  const [registered, setRegistered] = useState(null);
 
   const handleAlert = (e, show) => {
     const alert = document.querySelector(`#${e.target.id}-alert`);
@@ -19,6 +20,10 @@ const Register = () => {
     }
   };
 
+  const isValidEmail = email => {
+    let emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailRegex.test(`${email}`);
+  };
   const handleValidation = e => {
     switch (e.target.id) {
       case 'name':
@@ -26,7 +31,7 @@ const Register = () => {
           return handleAlert(e, true);
         else return handleAlert(e, false);
       case 'email':
-        if (e.target.value.length < 6 && e.target.value.length > 0)
+        if (!isValidEmail(e.target.value) && e.target.value.length > 0)
           return handleAlert(e, true);
         else return handleAlert(e, false);
       case 'password':
@@ -60,68 +65,81 @@ const Register = () => {
         .post(`http://localhost:5500/api/users`, user)
         .then(function(response) {
           setLoading(false);
-          setRegisted(true);
-          // console.log(response.data);
+          setRegistered(true);
         })
         .catch(function(error) {
           setLoading(false);
-          setRegisted(false);
-          // console.log(error);
+          setRegistered(false);
         });
     }
   };
 
   const resetPage = () => {
-    setRegisted(null);
+    setRegistered(null);
   };
 
   if (loading) return <Spinner />;
-  else if (registed) {
+  else if (registered) {
     return (
       <div className='success-register'>
-        <h2>Successfully registed</h2>
+        <Alert color='secondary'>Successfully registered</Alert>
         <Link to='/login'>
-          <button>Login</button>
+          <Button color='dark' style={{ marginBottom: '2rem' }}>
+            Login
+          </Button>
         </Link>
       </div>
     );
-  } else if (registed === false) {
+  } else if (registered === false) {
     return (
       <div className='success-register'>
-        <h2>
+        <Alert color='secondary'>
           Did not register, email already in system, try a different email.
-        </h2>
-        <button onClick={resetPage}>Register Again</button>
+        </Alert>
+        <Button
+          color='dark'
+          style={{ marginBottom: '2rem' }}
+          onClick={resetPage}>
+          Register Again
+        </Button>
       </div>
     );
   } else
     return (
       <div>
-        <form action='register' className='register-form tc fade-in'>
-          <label htmlFor='name'>Name</label>
-          <input type='text' id='name' onChange={handleValidation} />
-          <p className='alert hidden' id='name-alert'>
-            Must be at least 6 characters
-          </p>
-          <label htmlFor='email'>Email</label>
-          <input type='email' id='email' onChange={handleValidation} />
-          <p className='alert hidden' id='email-alert'>
-            Must be a valid email
-          </p>
-          <label htmlFor='password'>Password</label>
-          <input type='password' id='password' onChange={handleValidation} />
-          <p className='alert hidden' id='password-alert'>
-            Must be at least 6 characters
-          </p>
-          <label htmlFor='catName'>Cat Name</label>
-          <input type='text' id='cat-name' onChange={handleValidation} />
-          <p className='alert hidden' id='cat-name-alert'>
-            Must be at least 3 characters
-          </p>
-          <button type='submit' onClick={register}>
-            Register
-          </button>
-        </form>
+        <Form action='register' className='register-form tc fade-in'>
+          <FormGroup>
+            <Label htmlFor='name'>Name</Label>
+            <Input type='text' id='name' onChange={handleValidation} />
+            <Alert color='secondary' className='hidden' id='name-alert'>
+              Must be at least 6 characters
+            </Alert>
+            <Label htmlFor='email'>Email</Label>
+            <Input type='email' id='email' onChange={handleValidation} />
+            <Alert color='secondary' className='hidden' id='email-alert'>
+              Must be a valid email
+            </Alert>
+            <Label htmlFor='password'>Password</Label>
+            <Input type='password' id='password' onChange={handleValidation} />
+            <Alert color='secondary' className='hidden' id='password-alert'>
+              Must be at least 6 characters
+            </Alert>
+            <Label htmlFor='catName'>Cat Name</Label>
+            <Input type='text' id='cat-name' onChange={handleValidation} />
+            <Alert color='secondary' className='hidden' id='cat-name-alert'>
+              Must be at least 3 characters
+            </Alert>
+            <Button
+              className='my-4'
+              block
+              color='dark'
+              style={{ marginBottom: '2rem' }}
+              type='submit'
+              onClick={register}>
+              Register
+            </Button>
+          </FormGroup>
+        </Form>
       </div>
     );
 };

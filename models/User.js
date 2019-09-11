@@ -7,11 +7,6 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  logo: {
-    type: String,
-    required: true,
-    default: 'man'
-  },
   password: {
     type: String,
     required: true

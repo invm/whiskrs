@@ -11,11 +11,16 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/postActions';
+import PropTypes from 'prop-types';
 
 class PostModal extends Component {
   state = {
     modal: false,
     body: ''
+  };
+
+  static propTypes = {
+    isAuthenticated: PropTypes.bool
   };
 
   onSubmit = e => {
@@ -41,12 +46,14 @@ class PostModal extends Component {
   render() {
     return (
       <div>
-        <Button
-          color='dark'
-          style={{ marginBottom: '2rem' }}
-          onClick={this.toggle}>
-          Add Post
-        </Button>
+        {this.props.isAuthenticated ? (
+          <Button color='dark' style={{ margin: '2rem' }} onClick={this.toggle}>
+            Add Post
+          </Button>
+        ) : (
+          <h4 className='mx-3 my-4'>Login to share stories..</h4>
+        )}
+
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add Post</ModalHeader>
           <ModalBody>
@@ -77,7 +84,8 @@ class PostModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(

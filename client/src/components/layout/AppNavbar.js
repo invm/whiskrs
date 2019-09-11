@@ -1,6 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import RegisterModal from '../auth/RegisterModal';
+import LoginModal from '../auth/LoginModal';
+import Logout from '../auth/Logout';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import {
   Collapse,
   Navbar,
@@ -16,9 +21,9 @@ class AppNavbar extends Component {
     isOpen: false
   };
 
-  // static propTypes = {
-  //   auth: PropTypes.object.isRequired
-  // };
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  };
 
   toggle = () => {
     this.setState({
@@ -27,35 +32,35 @@ class AppNavbar extends Component {
   };
 
   render() {
-    // const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
 
-    // const authLinks = (
-    //   <Fragment>
-    //     <NavItem>
-    //       <span className='navbar-text mr-3'>
-    //         <strong>{user ? `Welcome ${user.name}` : ''}</strong>
-    //       </span>
-    //     </NavItem>
-    //     <NavItem>
-    //       <Logout />
-    //     </NavItem>
-    //   </Fragment>
-    // );
+    const authLinks = (
+      <Fragment>
+        <NavItem>
+          <Link to='/profile' className='navbar-text mr-3 nav-link'>
+            <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+          </Link>
+        </NavItem>
+        <NavItem>
+          <Logout />
+        </NavItem>
+      </Fragment>
+    );
 
-    // const guestLinks = (
-    //   <Fragment>
-    //     <NavItem>
-    //       <RegisterModal />
-    //     </NavItem>
-    //     <NavItem>
-    //       <LoginModal />
-    //     </NavItem>
-    //   </Fragment>
-    // );
+    const guestLinks = (
+      <Fragment>
+        <NavItem>
+          <RegisterModal />
+        </NavItem>
+        <NavItem>
+          <LoginModal />
+        </NavItem>
+      </Fragment>
+    );
 
     return (
       <div>
-        <Navbar color='warning' light expand='sm' className='mb-5'>
+        <Navbar light expand='sm' className='mb-5 bg-gradient'>
           <Container>
             <Link to='/' className='navbar-brand'>
               <i className='fa fa-cat fa-2x'></i>Whiskrs
@@ -63,32 +68,12 @@ class AppNavbar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className='ml-auto' navbar>
-                {/* {isAuthenticated ? authLinks : guestLinks} */}
-                <Fragment>
-                  <NavItem>
-                    <Link className='nav-link' to='/feed'>
-                      Feed
-                    </Link>
-                  </NavItem>
-                  <NavItem>
-                    <Link className='nav-link' to='/profile'>
-                      Profile
-                    </Link>
-                  </NavItem>
-                  <NavItem>
-                    <Link className='nav-link' to='/register'>
-                      Register
-                    </Link>
-                  </NavItem>
-                  <NavItem>
-                    <Link className='nav-link' to='/login'>
-                      Login
-                    </Link>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href='github.io'>Github</NavLink>
-                  </NavItem>
-                </Fragment>
+                {isAuthenticated ? authLinks : guestLinks}
+                <NavItem>
+                  <NavLink href='https://github.com/invm/whiskrs'>
+                    <i className='fab fa-github fa-2x'></i>
+                  </NavLink>
+                </NavItem>
               </Nav>
             </Collapse>
           </Container>
@@ -98,4 +83,11 @@ class AppNavbar extends Component {
   }
 }
 
-export default AppNavbar;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(AppNavbar);

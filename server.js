@@ -3,22 +3,9 @@ const mongoose = require('mongoose');
 const config = require('config');
 const path = require('path');
 
-// const users = require('./routes/api/users');
-const posts = require('./routes/api/posts');
-// const auth = require('./routes/api/auth');
-
 const app = express();
 
 app.use(express.json());
-
-// app.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*' /* 'http://localhost:3000' */); // update to match the domain you will make the request from
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content-Type, Accept'
-//   );
-//   next();
-// });
 
 const db = config.get('mongoURI');
 
@@ -29,15 +16,14 @@ mongoose
 
 // Use routes
 
-// app.use('/api/users', users);
-app.use('/api/posts', posts);
-// app.use('/api/auth', auth);
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
-
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });

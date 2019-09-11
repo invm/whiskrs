@@ -3,17 +3,13 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const PostSchema = new Schema({
-  userId: {
-    type: String
-    // required: true
-  },
   body: {
     type: String,
     required: true
   },
   date: {
     type: Date,
-    default: Date.now()
+    default: Date.now
   },
   likes: {
     type: Array

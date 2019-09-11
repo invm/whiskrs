@@ -1,8 +1,15 @@
-import React , { Fragment } from 'react';
+import React from 'react';
 import spinner from './spinner.gif';
+import { Alert } from 'reactstrap';
 
-const Spinner = () => <Fragment>
-            <img src={spinner} alt="loading" style= {{width: '200px' , margin: 'auto', display: 'block'}} />
-        </Fragment>
+const Spinner = () => (
+  <Alert style={{ background: 'white' }}>
+    <img
+      src={spinner}
+      alt='loading'
+      style={{ width: '200px', margin: 'auto', display: 'block' }}
+    />
+  </Alert>
+);
 
 export default Spinner;

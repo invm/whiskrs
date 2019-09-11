@@ -1,18 +1,26 @@
 # Whiskrs Sharing Board
 
-[Whiskrs Sharing Board](https://.com/)
+[Whiskrs Sharing Board](https://warm-woodland-86574.herokuapp.com/)
 
 ## Getting Started
 
-Just clone, install dependencies, and run 'npm run dev' to concurrently run the server and client.
+Just clone, update the mongoDB URI in config/default.json.
+
+Copy this command and run in root folder,
+
+<pre>
+<code> npm install && npm install --prefix client </code>
+</pre>
+
+Then run this script to concurrently run the server and the client.
+<pre>
+<code> npm run dev </code>
+</pre>
+
 
 ### Prerequisites
 
 Node , express & react.
-
-## Deployment
-
-Fully deployed to heroku.
 
 ## Built with the MERN stack
 
@@ -20,6 +28,7 @@ Fully deployed to heroku.
 - Express
 - React
 - Node
+- Reactstrap
 
 ## Authors
 

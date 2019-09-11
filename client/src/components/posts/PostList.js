@@ -10,6 +10,12 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 
 class PostList extends Component {
+  static propTypes = {
+    getPosts: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
+    post: PropTypes.object.isRequired
+  };
+
   componentDidMount() {
     this.props.getPosts();
   }
@@ -26,11 +32,12 @@ class PostList extends Component {
         <Container>
           <div>
             <TransitionGroup className='posts-list'>
-              {posts.map(({ _id, body }) => (
+              {posts.map(({ _id, body, date }) => (
                 <CSSTransition key={_id} timeout={500} classNames='fade'>
                   <PostItem
                     key={_id}
                     body={body}
+                    date={date}
                     removePost={this.onDeleteClick.bind(this, _id)}
                   />
                 </CSSTransition>
@@ -41,12 +48,6 @@ class PostList extends Component {
       );
   }
 }
-
-PostList.propTypes = {
-  getPosts: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   post: state.post

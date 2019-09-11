@@ -1,5 +1,5 @@
 import React from 'react';
-import User from '../user/User';
+import User from '../auth/User';
 import PostList from '../posts/PostList';
 
 const Profile = () => {

@@ -13,12 +13,15 @@ const User = require('../../models/User');
 // @access public
 
 router.get('/', (req, res) => {
-  User.find().then(items => res.json(items));
+  User.find()
+    .select('-password')
+    .then(items => res.json(items));
 });
 
 // @route POST api/users
 // @desc Register a user
 // @access public // should be private with auth
+
 router.post('/', (req, res) => {
   const { name, email, password, catName } = req.body;
   // Validation
@@ -40,6 +43,7 @@ router.post('/', (req, res) => {
     });
     // Create salt and hash
     bcrypt.genSalt(10, (err, salt) => {
+      // 10 rounds to crypt, the larger number the more secure but takes longer to generate
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
         newUser.password = hash;
@@ -69,6 +73,7 @@ router.post('/', (req, res) => {
 // @route DELETE api/users:id
 // @desc Delete a user
 // @access public // should be private with auth
+
 router.delete('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({ success: true })))
