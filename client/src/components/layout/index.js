@@ -1,5 +1,5 @@
-import Navbar from './Navbar';
+import AppNavbar from './AppNavbar';
 import Sidebar from './Sidebar';
 import Spinner from './Spinner';
 
-export { Navbar, Sidebar, Spinner };
+export { AppNavbar, Sidebar, Spinner };

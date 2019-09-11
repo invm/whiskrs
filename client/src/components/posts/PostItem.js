@@ -1,61 +1,30 @@
-import React, { Fragment, useContext, useState } from 'react';
-import WhiskrsContext from '../../context/whiskrs/whiskrsContext';
+import React, { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { ListGroupItem, Button } from 'reactstrap';
 
-const PostItem = ({ postItem, parent, ownedByUser }) => {
-  const [show, setShow] = useState(true);
-  let [likes, setLikes] = useState(Math.floor(Math.random() * 25));
-  const whiskrsContext = useContext(WhiskrsContext);
-  const user = whiskrsContext.user;
-
-  let { title, body /* , id */ } = postItem;
-  // if (parent === 'sidebar') {
-  // }
-  const hidePost = e => {
-    if (show) {
-      setShow(false);
-    }
-  };
-  const likePost = e => {
-    setLikes(++likes);
-  };
-
+const PostItem = ({ id, body, index, updatePost, removePost }) => {
   return (
-    <>
-      {show && (
-        <div className='post-item'>
-          <div style={postItemStyle}>
-            <h4>{title}</h4>
-            <button style={xButtonStyle} onClick={hidePost}>
-              Hide
-            </button>
-          </div>
-          <Fragment>
-            <p>{body}</p>
-          </Fragment>
-          <div className='post-buttons'>
-            <button className='post-button' onClick={likePost}>
-              Like! {likes > 0 && likes}
-            </button>
-            {!parent && user && ownedByUser && (
-              <button className='post-button'>Update </button>
-            )}
-            {!parent && user && ownedByUser && (
-              <button className='post-button'>Delete </button>
-            )}
-          </div>
-        </div>
-      )}
-    </>
+    <CSSTransition key={id} timeout={500} classNames='fade'>
+      <ListGroupItem className='my-1 rounded'>
+        <Button
+          className='remove-btn'
+          color='danger'
+          size='sm'
+          onClick={() => removePost(id)}>
+          &times;
+        </Button>
+        <Button
+          className='remove-btn'
+          color='info'
+          size='sm'
+          onClick={() => updatePost(index)}>
+          &#10227;
+        </Button>
+
+        {body}
+      </ListGroupItem>
+    </CSSTransition>
   );
 };
 
 export default PostItem;
-
-const postItemStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center'
-};
-const xButtonStyle = {
-  backgroundColor: '#0881e4'
-};

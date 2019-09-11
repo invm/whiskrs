@@ -1,10 +1,10 @@
 import React from 'react';
-import Posts from '../posts/Posts';
+import PostList from '../posts/PostList';
 
 const Feed = () => {
   return (
     <div className='fade-in'>
-      <Posts />
+      <PostList />
     </div>
   );
 };

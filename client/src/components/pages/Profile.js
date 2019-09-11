@@ -1,16 +1,12 @@
-import React, { useContext } from 'react';
-import WhiskrsContext from '../../context/whiskrs/whiskrsContext';
+import React from 'react';
 import User from '../user/User';
-import Posts from '../posts/Posts';
+import PostList from '../posts/PostList';
 
 const Profile = () => {
-  const whiskrsContext = useContext(WhiskrsContext);
-  const { userId } = whiskrsContext.user;
-
   return (
     <div className='fade-in profile-page tc'>
       <User parent={'profile'} />
-      <Posts parent={userId} />
+      <PostList />
     </div>
   );
 };
