@@ -30,16 +30,14 @@ class PostItem extends Component {
     return (
       <CSSTransition key={_id} timeout={500} classNames='fade'>
         <ListGroupItem className='my-1 rounded'>
-          <div style={postStyle}>
-            <div></div>
-            <div></div>
-          </div>
           {this.props.isAuthenticated && this.props.user._id === userId ? (
             <ClosePostModal removePost={removePost} id={_id} />
           ) : null}
 
           {body}
-          <Link to={`/profile/${userId}`}>{name}</Link>
+          <Link to={`/profile/${userId}`}>
+            <Badge color='info'>{name}</Badge>
+          </Link>
           {postDate.toLocaleDateString() === new Date().toLocaleDateString() ? (
             <Badge color='warning' style={badgeStyle}>
               {`${postDate.getHours()}:${
@@ -57,7 +55,7 @@ class PostItem extends Component {
   }
 }
 
-const postStyle = {};
+// const postStyle = {};
 
 const badgeStyle = {
   padding: '0.4rem',

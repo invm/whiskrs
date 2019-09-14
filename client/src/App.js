@@ -23,20 +23,16 @@ class App extends Component {
         <Router>
           <AppNavbar />
           <Container>
-            <div className='grid-1-3'>
-              <div>
-                <Switch>
-                  <Route exact path='/' component={Home} />
-                  <Route
-                    exact
-                    path='/profile/:id'
-                    render={props => <Profile props={props} />}
-                  />
-                  <Route component={NotFound} />
-                </Switch>
-              </div>
-              <Sidebar />
-            </div>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route
+                exact
+                path='/profile/:id'
+                render={props => <Profile props={props} />}
+              />
+              <Route component={NotFound} />
+            </Switch>
+            <Sidebar />
           </Container>
         </Router>
       </Provider>

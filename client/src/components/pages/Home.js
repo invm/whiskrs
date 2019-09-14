@@ -1,21 +1,52 @@
-import React from 'react';
-import PostList from '../posts/PostList';
-import PostModal from '../posts/PostModal';
+import React, { Component } from 'react';
+import { PostModal, PostList, Search } from '../posts';
+import { Container } from 'reactstrap';
+import { connect } from 'react-redux';
 
-const Home = () => {
-  return (
-    <>
-      <div className='brand-image fade-in rounded'>
-        <div className='text'>
-          <h1>Whiskrs</h1>
-          <p>A public sharing board for your cat moments</p>
-          <p>Spread the joy or share the pain</p>
+import {
+  getPosts,
+  deletePost,
+  setPostsLoading
+} from '../../actions/postActions';
+
+class Home extends Component {
+  state = {
+    search: ''
+  };
+
+  componentDidMount() {
+    this.props.getPosts();
+  }
+
+  render() {
+    const posts = this.props.post.posts;
+    return (
+      <Container>
+        <Search />
+        <div className='brand-image fade-in rounded'>
+          <div className='text'>
+            <h1>Whiskrs</h1>
+            <p>A public sharing board for your cat moments</p>
+            <p>Spread the joy or share the pain</p>
+          </div>
         </div>
-      </div>
-      <PostModal />
-      <PostList />
-    </>
-  );
-};
+        <PostModal />
+        <PostList
+          loading={this.props.post.loading}
+          posts={posts}
+          setPostsLoading={this.props.setPostsLoading}
+          deletePost={this.props.deletePost}
+        />
+      </Container>
+    );
+  }
+}
 
-export default Home;
+const mapStateToProps = state => ({
+  post: state.post
+});
+
+export default connect(
+  mapStateToProps,
+  { getPosts, deletePost, setPostsLoading }
+)(Home);

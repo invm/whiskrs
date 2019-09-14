@@ -62,7 +62,7 @@ class AppNavbar extends Component {
 
     return (
       <div>
-        <Navbar light expand='sm' className='mb-5 bg-gradient'>
+        <Navbar light expand='sm' className='mb-3 bg-gradient'>
           <Container>
             <Link to='/' className='navbar-brand'>
               <i className='fa fa-cat fa-2x'></i>Whiskrs

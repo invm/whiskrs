@@ -40,7 +40,7 @@ class PostModal extends Component {
   };
   render() {
     return (
-      <div>
+      <div style={{ display: 'inline' }}>
         <Button
           className='remove-btn '
           color='danger'
