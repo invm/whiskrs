@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const User = ({ parent }) => {
-  if (parent === 'profile') {
-    return <div>{/* <h1>Profile page for {user.name}</h1> */}</div>;
-  } else {
-    return <div>{/* <h1>{user.name}</h1> */}</div>;
+class User extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: props.user.name,
+      email: props.user.email,
+      catName: props.user.catName
+    };
   }
-};
 
-export default User;
+  render() {
+    const { name, catName, email } = this.state;
+    return (
+      <div className='card'>
+        <h1>{name}</h1>
+        <h2>{catName}</h2>
+        <h3>{email}</h3>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(User);

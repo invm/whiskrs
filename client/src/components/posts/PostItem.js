@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { ListGroupItem, Button } from 'reactstrap';
+import { ListGroupItem, Badge } from 'reactstrap';
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ClosePostModal from './ClosePostModal';
 
 class PostItem extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    user: PropTypes.object
   };
 
   constructor(props) {
@@ -15,34 +18,58 @@ class PostItem extends Component {
       _id: props._id,
       body: props.body,
       date: props.date,
-      removePost: props.removePost
+      removePost: props.removePost,
+      userId: props.userId,
+      name: props.name
     };
   }
 
   render() {
+    const { _id, body, removePost, userId, name } = this.state;
+    let postDate = new Date(this.state.date);
     return (
-      <CSSTransition key={this.state._id} timeout={500} classNames='fade'>
+      <CSSTransition key={_id} timeout={500} classNames='fade'>
         <ListGroupItem className='my-1 rounded'>
-          {this.props.isAuthenticated ? (
-            <Button
-              className='remove-btn'
-              color='danger'
-              size='sm'
-              onClick={() => this.state.removePost(this.state._id)}>
-              &times;
-            </Button>
+          <div style={postStyle}>
+            <div></div>
+            <div></div>
+          </div>
+          {this.props.isAuthenticated && this.props.user._id === userId ? (
+            <ClosePostModal removePost={removePost} id={_id} />
           ) : null}
 
-          {this.state.body}
-          {this.state.date}
+          {body}
+          <Link to={`/profile/${userId}`}>{name}</Link>
+          {postDate.toLocaleDateString() === new Date().toLocaleDateString() ? (
+            <Badge color='warning' style={badgeStyle}>
+              {`${postDate.getHours()}:${
+                postDate.getMinutes() === 0 ? '00' : postDate.getMinutes()
+              }`}
+            </Badge>
+          ) : (
+            <Badge color='warning' style={badgeStyle}>
+              {postDate.toLocaleDateString()}
+            </Badge>
+          )}
         </ListGroupItem>
       </CSSTransition>
     );
   }
 }
 
+const postStyle = {};
+
+const badgeStyle = {
+  padding: '0.4rem',
+  fontSize: '0.8rem',
+  color: 'black',
+  float: 'right',
+  display: 'block'
+};
+
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
 export default connect(

@@ -22,7 +22,8 @@ router.get('/', (req, res) => {
 router.post('/', auth, (req, res) => {
   const post = new Post({
     userId: req.body.userId,
-    body: req.body.body
+    body: req.body.body,
+    name: req.body.name
   });
   post.save().then(item => res.json(item));
 });
@@ -40,7 +41,7 @@ router.delete('/:id', auth, (req, res) => {
 // @desc Update post's likes
 // @access Private
 // router.put('/:id', auth, (req, res) => {
-//   // TODO
+//   // TODO Likes array update
 //   Post.update({_id = req.params.id},{
 //           likes: [...likes, req.body.userId]
 //         })

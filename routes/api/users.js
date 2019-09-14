@@ -18,6 +18,17 @@ router.get('/', (req, res) => {
     .then(items => res.json(items));
 });
 
+// @route GET api/users
+// @desc Get all users
+// @access public
+
+router.get('/:id', (req, res) => {
+  User.findById(req.params.id)
+    .select('-password')
+    .then(items => res.json(items))
+    .catch(err => res.status(404).json({ success: false }));
+});
+
 // @route POST api/users
 // @desc Register a user
 // @access public // should be private with auth

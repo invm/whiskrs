@@ -10,12 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import { AppNavbar, Sidebar } from './components/layout';
-import {
-  Home,
-  NotFound,
-  Login
-  // Profile
-} from './components/pages/';
+import { Home, NotFound, Profile } from './components/pages/';
 
 class App extends Component {
   componentDidMount() {
@@ -32,8 +27,11 @@ class App extends Component {
               <div>
                 <Switch>
                   <Route exact path='/' component={Home} />
-                  {/* <Route exact path='/profile' component={Profile} /> */}
-                  <Route exact path='/login' component={Login} />
+                  <Route
+                    exact
+                    path='/profile/:id'
+                    render={props => <Profile props={props} />}
+                  />
                   <Route component={NotFound} />
                 </Switch>
               </div>

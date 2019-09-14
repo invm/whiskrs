@@ -10,6 +10,12 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 
 class PostList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: this.props.user || ''
+    };
+  }
   static propTypes = {
     getPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
@@ -26,31 +32,52 @@ class PostList extends Component {
 
   render() {
     const { posts, loading } = this.props.post;
+    const user = this.state.user;
     if (loading) return <Spinner />;
-    else
+    else if (user)
       return (
         <Container>
-          <div>
-            <TransitionGroup className='posts-list'>
-              {posts.map(({ _id, body, date }) => (
+          <TransitionGroup className='posts-list'>
+            {posts
+              .filter(post => post.userId === user._id)
+              .map(({ userId, _id, body, date, name }) => (
                 <CSSTransition key={_id} timeout={500} classNames='fade'>
                   <PostItem
                     key={_id}
                     body={body}
                     date={date}
+                    userId={userId}
+                    name={name}
                     removePost={this.onDeleteClick.bind(this, _id)}
                   />
                 </CSSTransition>
               ))}
-            </TransitionGroup>
-          </div>
+          </TransitionGroup>
+        </Container>
+      );
+    else
+      return (
+        <Container>
+          <TransitionGroup className='posts-list'>
+            {posts.map(({ userId, _id, body, date, name }) => (
+              <PostItem
+                key={_id}
+                body={body}
+                date={date}
+                userId={userId}
+                name={name}
+                removePost={this.onDeleteClick.bind(this, _id)}
+              />
+            ))}
+          </TransitionGroup>
         </Container>
       );
   }
 }
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(

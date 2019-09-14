@@ -100,7 +100,7 @@ class RegisterModal extends Component {
   handleValidation = e => {
     switch (e.target.id) {
       case 'name':
-        if (e.target.value.length < 6 && e.target.value.length > 0)
+        if (e.target.value.length < 3 && e.target.value.length > 0)
           return this.handleAlert(e, true);
         else return this.handleAlert(e, false);
       case 'email':

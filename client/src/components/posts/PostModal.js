@@ -20,13 +20,16 @@ class PostModal extends Component {
   };
 
   static propTypes = {
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    user: PropTypes.object
   };
 
   onSubmit = e => {
     e.preventDefault();
     const newPost = {
-      body: this.state.body
+      body: this.state.body,
+      name: this.props.user.name,
+      userId: this.props.user._id
     };
     // Add post via addPost action
     this.props.addPost(newPost);
@@ -85,7 +88,8 @@ class PostModal extends Component {
 
 const mapStateToProps = state => ({
   post: state.post,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
 export default connect(
