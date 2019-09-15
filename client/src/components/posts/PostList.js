@@ -1,70 +1,89 @@
-import React, { Component } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import PropTypes from 'prop-types';
-
+import React, { useState, useEffect } from 'react';
+import { Input } from 'reactstrap';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 
-class PostList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: this.props.user || ''
-    };
-  }
-  static propTypes = {
-    // getPosts: PropTypes.func.isRequired,
-    deletePost: PropTypes.func.isRequired
+const PostList = props => {
+  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState('');
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    setPosts(props.posts);
+    if (props.user) setUser(props.user);
+  }, [props]);
+
+  const onDeleteClick = id => {
+    props.setPostsLoading();
+    props.deletePost(id);
+    setPosts(props.posts.filter(post => post._id !== id));
   };
 
-  // componentDidMount() {
-  //   this.props.getPosts();
-  // }
-
-  onDeleteClick = id => {
-    this.props.setPostsLoading();
-    this.props.deletePost(id);
+  const handleSearchChange = e => {
+    setSearch(e.target.value);
   };
-
-  render() {
-    let { posts, loading } = this.props;
-    const user = this.state.user;
-    if (loading) return <Spinner />;
-    else if (user)
-      return (
-        <TransitionGroup className='posts-list'>
-          {posts
-            .filter(post => post.userId === user._id)
-            .map(({ userId, _id, body, date, name }) => (
-              <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <PostItem
-                  key={_id}
-                  body={body}
-                  date={date}
-                  userId={userId}
-                  name={name}
-                  removePost={this.onDeleteClick.bind(this, _id)}
-                />
-              </CSSTransition>
-            ))}
-        </TransitionGroup>
-      );
-    else
-      return (
-        <TransitionGroup className='posts-list'>
-          {posts.map(({ userId, _id, body, date, name }) => (
+  if (props.loading) return <Spinner />;
+  else if (user)
+    return (
+      <div className='posts-list'>
+        <Input
+          placeholder='Search for posts or users..'
+          className='my-3'
+          value={search}
+          onChange={handleSearchChange}
+        />
+        {posts
+          .filter(post => post.userId === user._id)
+          .filter(post => {
+            if (
+              post.body.toLowerCase().includes(search.toLowerCase()) ||
+              post.name.toLowerCase().includes(search.toLowerCase())
+            )
+              return post;
+            return null;
+          })
+          .map(({ userId, _id, body, date, name }) => (
             <PostItem
               key={_id}
               body={body}
               date={date}
               userId={userId}
               name={name}
-              removePost={this.onDeleteClick.bind(this, _id)}
+              removePost={() => onDeleteClick(_id)}
             />
           ))}
-        </TransitionGroup>
-      );
-  }
-}
+      </div>
+    );
+  else
+    return (
+      <div>
+        <Input
+          placeholder='Search for posts or users..'
+          className='my-3'
+          value={search}
+          onChange={handleSearchChange}
+        />
+        {posts
+          .filter(post => {
+            if (
+              post.body.toLowerCase().includes(search.toLowerCase()) ||
+              post.name.toLowerCase().includes(search.toLowerCase())
+            )
+              return post;
+            return null;
+          })
+          .map(({ userId, _id, body, date, name }) => (
+            <PostItem
+              key={_id}
+              body={body}
+              date={date}
+              userId={userId}
+              name={name}
+              removePost={() => onDeleteClick(_id)}
+            />
+          ))}
+      </div>
+    );
+};
 
 export default PostList;

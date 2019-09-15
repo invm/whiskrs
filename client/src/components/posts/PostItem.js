@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Badge } from 'reactstrap';
-import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -28,29 +27,29 @@ class PostItem extends Component {
     const { _id, body, removePost, userId, name } = this.state;
     let postDate = new Date(this.state.date);
     return (
-      <CSSTransition key={_id} timeout={500} classNames='fade'>
-        <ListGroupItem className='my-1 rounded'>
-          {this.props.isAuthenticated && this.props.user._id === userId ? (
-            <ClosePostModal removePost={removePost} id={_id} />
-          ) : null}
+      <ListGroupItem className='my-1 rounded'>
+        {this.props.isAuthenticated && this.props.user._id === userId ? (
+          <ClosePostModal removePost={removePost} id={_id} />
+        ) : null}
 
-          {body}
-          <Link to={`/profile/${userId}`}>
-            <Badge color='info'>{name}</Badge>
-          </Link>
-          {postDate.toLocaleDateString() === new Date().toLocaleDateString() ? (
-            <Badge color='warning' style={badgeStyle}>
-              {`${postDate.getHours()}:${
-                postDate.getMinutes() === 0 ? '00' : postDate.getMinutes()
-              }`}
-            </Badge>
-          ) : (
-            <Badge color='warning' style={badgeStyle}>
-              {postDate.toLocaleDateString()}
-            </Badge>
-          )}
-        </ListGroupItem>
-      </CSSTransition>
+        {body}
+        <Link to={`/profile/${userId}`}>
+          <Badge color='info'>{name}</Badge>
+        </Link>
+        {postDate.toLocaleDateString() === new Date().toLocaleDateString() ? (
+          <Badge color='warning' style={badgeStyle}>
+            {`${postDate.getHours()}:${
+              postDate.getMinutes() <= 9
+                ? `0${postDate.getMinutes()}`
+                : postDate.getMinutes()
+            }`}
+          </Badge>
+        ) : (
+          <Badge color='warning' style={badgeStyle}>
+            {postDate.toLocaleDateString()}
+          </Badge>
+        )}
+      </ListGroupItem>
     );
   }
 }

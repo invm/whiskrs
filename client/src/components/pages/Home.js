@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PostModal, PostList, Search } from '../posts';
+import { PostModal, PostList } from '../posts';
 import { Container } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -21,15 +21,14 @@ class Home extends Component {
   render() {
     const posts = this.props.post.posts;
     return (
-      <Container>
-        <Search />
-        <div className='brand-image fade-in rounded'>
+      <Container className='fade-in'>
+        {/* <div className='brand-image fade-in rounded'>
           <div className='text'>
             <h1>Whiskrs</h1>
             <p>A public sharing board for your cat moments</p>
             <p>Spread the joy or share the pain</p>
           </div>
-        </div>
+        </div> */}
         <PostModal />
         <PostList
           loading={this.props.post.loading}
