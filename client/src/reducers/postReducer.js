@@ -2,7 +2,9 @@ import {
   GET_POSTS,
   ADD_POST,
   DELETE_POST,
-  POSTS_LOADING
+  POSTS_LOADING,
+  LIKE_POST,
+  DISLIKE_POST
 } from '../actions/types';
 
 const initialState = {
@@ -33,6 +35,31 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case LIKE_POST:
+      return {
+        ...state,
+        posts: [
+          ...state.posts.forEach(post => {
+            if (post._id === action.payload.postId) {
+              post.likes.push(action.payload.userId);
+            }
+          })
+        ]
+      };
+    case DISLIKE_POST:
+      return {
+        ...state,
+        posts: [
+          ...state.posts.map(post => {
+            if (post._id === action.payload.postId) {
+              post.likes = post.likes.filter(
+                like => like !== action.payload.userId
+              );
+            }
+            return post;
+          })
+        ]
       };
     default:
       return state;

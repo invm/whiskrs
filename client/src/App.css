@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -24,21 +24,24 @@
 }
 
 .card {
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  text-align: center;
+  /* text-align: center; */
+  clear: both;
 }
 
 .card:hover {
-  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25), 0 3px 5px rgba(0, 0, 0, 0.22);
 }
 
 * {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -65,7 +68,7 @@ ul {
   -webkit-transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-animation: fadein 0.5s ease;
-          animation: fadein 0.5s ease;
+  animation: fadein 0.5s ease;
 }
 
 .fade-enter {
@@ -99,6 +102,7 @@ ul {
 
 .remove-btn {
   margin-right: 0.5rem !important;
+  float: right !important;
 }
 
 .register-form input,
@@ -119,13 +123,19 @@ ul {
 }
 
 .bg-gradient {
-  background: -webkit-gradient(linear, right top, left top, from(var(--red)), to(var(--warning)));
+  background: -webkit-gradient(
+    linear,
+    right top,
+    left top,
+    from(var(--red)),
+    to(var(--warning))
+  );
   background: linear-gradient(to left, var(--red), var(--warning));
   color: white;
 }
 
 .brand-image {
-  background: url("./components/pages/cat1.jpg");
+  background: url('./components/pages/cat1.jpg');
   height: 500px;
   width: 100%;
   background-position: center;
@@ -195,3 +205,23 @@ ul {
   min-height: 100px;
 }
 /*# sourceMappingURL=App.css.map */
+
+li {
+  display: flex;
+}
+
+/* li p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: fit-content;
+}
+
+li:hover p {
+  transition: 2s ease-in-out;
+  white-space: normal;
+  height: auto;
+  white-space: nowrap;
+  overflow: auto;
+  text-overflow: none;
+} */

@@ -22,10 +22,10 @@ router.get('/', (req, res) => {
 // @desc Get all users
 // @access public
 
-router.get('/:id', (req, res) => {
+router.get('/user/:id', (req, res) => {
   User.findById(req.params.id)
     .select('-password')
-    .then(items => res.json(items))
+    .then(item => res.json(item))
     .catch(err => res.status(404).json({ success: false }));
 });
 

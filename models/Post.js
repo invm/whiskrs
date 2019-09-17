@@ -20,7 +20,8 @@ const PostSchema = new Schema({
     default: Date.now
   },
   likes: {
-    type: Array
+    type: Array,
+    default: []
   }
 });
 

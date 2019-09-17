@@ -17,10 +17,10 @@ class User extends Component {
     super(props);
     this.state = {
       modal: false,
-      _id: props.user._id,
-      name: props.user.name,
-      email: props.user.email,
-      catName: props.user.catName
+      _id: props.user._id ? props.user._id : '',
+      name: props.user.name ? props.user.name : '',
+      email: props.user.email ? props.user.email : '',
+      catName: props.user.catName ? props.user.catName : ''
     };
   }
 
@@ -83,15 +83,15 @@ class User extends Component {
   };
 
   render() {
-    const { name, catName, email } = this.state;
+    const { name, catName, email } = this.props.user;
     return (
       <div className='card'>
         <h1>{name}</h1>
         <h2>{catName}</h2>
         <h3>{email}</h3>
-        {this.props.isAuthenticated &&
-        this.props.user._id === this.props.loggedIn ? (
-          <div style={{ display: 'inline' }}>
+        {this.props.isAuthenticated && (
+          /* this.props.user._id === this.props.loggedIn ? */ <div
+            style={{ display: 'inline' }}>
             <Button
               className='my-4'
               color='dark'
@@ -162,15 +162,15 @@ class User extends Component {
               </ModalBody>
             </Modal>
           </div>
-        ) : null}
+        ) /* : null */}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  loggedIn: state.auth.user._id
+  isAuthenticated: state.auth.isAuthenticated
+  // loggedIn: state.auth.user._id || ''
 });
 
 export default connect(

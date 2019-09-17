@@ -36,19 +36,22 @@ const PostList = props => {
           .filter(post => post.userId === user._id)
           .filter(post => {
             if (
-              post.body.toLowerCase().includes(search.toLowerCase()) ||
-              post.name.toLowerCase().includes(search.toLowerCase())
+              post.body &&
+              (post.body.toLowerCase().includes(search.toLowerCase()) ||
+                post.name.toLowerCase().includes(search.toLowerCase()))
             )
               return post;
             return null;
           })
-          .map(({ userId, _id, body, date, name }) => (
+          .map(({ userId, _id, body, date, name, likes }) => (
             <PostItem
               key={_id}
+              _id={_id}
               body={body}
               date={date}
               userId={userId}
               name={name}
+              likes={likes}
               removePost={() => onDeleteClick(_id)}
             />
           ))}
@@ -66,17 +69,20 @@ const PostList = props => {
         {posts
           .filter(post => {
             if (
-              post.body.toLowerCase().includes(search.toLowerCase()) ||
-              post.name.toLowerCase().includes(search.toLowerCase())
+              post.body &&
+              (post.body.toLowerCase().includes(search.toLowerCase()) ||
+                post.name.toLowerCase().includes(search.toLowerCase()))
             )
               return post;
             return null;
           })
-          .map(({ userId, _id, body, date, name }) => (
+          .map(({ userId, _id, body, date, name, likes }) => (
             <PostItem
               key={_id}
+              _id={_id}
               body={body}
               date={date}
+              likes={likes}
               userId={userId}
               name={name}
               removePost={() => onDeleteClick(_id)}

@@ -14,7 +14,9 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: {
+        _id: ''
+      },
       loading: false
     };
   }
@@ -22,28 +24,39 @@ class Profile extends Component {
   componentDidMount() {
     this.props.getPosts();
     this.setState({ ...this.state, loading: true });
-    const id = window.location.pathname.slice(
-      9,
-      window.location.pathname.length
-    );
-    axios
-      .get(`/api/users/${id}`)
-      .then(res => this.setState({ user: res.data, loading: false }))
-      .catch(err =>
-        this.setState({
-          msg: 'No user with such id',
-          loading: false
-        })
-      );
+    const { id } = this.props.props.match.params;
+    if (id !== this.state.user._id)
+      axios
+        .get(`/api/users/user/${id}`)
+        .then(res => this.setState({ user: res.data, loading: false }))
+        .catch(err =>
+          this.setState({
+            msg: 'No user with such id',
+            loading: false
+          })
+        );
   }
 
   render() {
     const { user, loading, msg } = this.state;
+
+    // Always get user from url, if changed from previous, update user in state.
+    const { id } = this.props.props.match.params;
+    if (user._id !== id) {
+      axios.get(`/api/users/user/${id}`).then(res =>
+        this.setState({
+          ...this.state,
+          user: res.data,
+          loading: false
+        })
+      );
+    }
+
     if (loading) return <Spinner />;
     else
       return (
         <div className='fade-in profile-page tc'>
-          {msg ? <h3>{msg}</h3> : <User user={user} />}
+          {msg ? <h3>{msg}</h3> : <User user={user ? user : {}} />}
           <PostList
             loading={this.props.post.loading}
             setPostsLoading={this.props.setPostsLoading}

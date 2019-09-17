@@ -23,7 +23,8 @@ router.post('/', auth, (req, res) => {
   const post = new Post({
     userId: req.body.userId,
     body: req.body.body,
-    name: req.body.name
+    name: req.body.name,
+    likes: []
   });
   post.save().then(item => res.json(item));
 });
@@ -37,17 +38,39 @@ router.delete('/:id', auth, (req, res) => {
     .catch(err => res.status(404).json({ success: false }));
 });
 
-// @route PUT api/posts:id
-// @desc Update post's likes
+// @route PUT api/posts/like:id
+// @desc Push to  post's likes
 // @access Private
-// router.put('/:id', auth, (req, res) => {
-//   // TODO Likes array update
-//   Post.update({_id = req.params.id},{
-//           likes: [...likes, req.body.userId]
-//         })
-//         .then(() => res.json({ success: true }))
+router.put('/like:id', auth, (req, res) => {
+  Post.findByIdAndUpdate(
+    { _id: req.body._id },
+    {
+      $push: {
+        likes: req.body.userId
+      }
+    },
+    { useFindAndModify: false }
+  )
+    .then(() => res.json({ success: true }))
 
-//     .catch(err => res.status(404).json({ success: false }));
-// });
+    .catch(err => res.status(404).json({ success: false }));
+});
+
+// @route PUT api/posts/dislike:id
+// @desc Delete from post's likes
+// @access Private
+
+router.put('/dislike:id', auth, (req, res) => {
+  Post.findByIdAndUpdate(
+    { _id: req.body._id },
+    {
+      $pull: { likes: req.body.userId }
+    },
+    { useFindAndModify: false }
+  )
+    .then(likes => res.json({ success: true, likes }))
+
+    .catch(err => res.status(404).json({ success: false, err, req, res }));
+});
 
 module.exports = router;
