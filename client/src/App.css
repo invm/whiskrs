@@ -101,8 +101,9 @@ ul {
 }
 
 .remove-btn {
-  margin-right: 0.5rem !important;
+  margin-left: 0.5rem !important;
   float: right !important;
+  padding: 0 0.5rem !important;
 }
 
 .register-form input,

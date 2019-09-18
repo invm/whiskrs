@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroupItem, Badge, Button, Alert } from 'reactstrap';
+import { ListGroupItem, Button, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -66,29 +66,39 @@ class PostItem extends Component {
             <ClosePostModal removePost={removePost} id={_id} />
           ) : null}
           {postDate.toLocaleDateString() === new Date().toLocaleDateString() ? (
-            <Alert color='secondary' style={badgeStyle}>
+            <Button
+              disabled
+              color='dark'
+              style={(badgeStyle, { padding: '0 0.25rem' })}>
               {`${postDate.getHours()}:${
                 postDate.getMinutes() <= 9
                   ? `0${postDate.getMinutes()}`
                   : postDate.getMinutes()
               }`}
-            </Alert>
+            </Button>
           ) : (
-            <Alert color='secondary' style={badgeStyle}>
+            <Button
+              disabled
+              color='dark'
+              style={(badgeStyle, { padding: '0 0.25rem', float: 'right' })}>
               {postDate.toLocaleDateString()}
-            </Alert>
+            </Button>
           )}
         </Alert>
 
         <p>{body}</p>
         {!this.state.likes.includes(this.props.user._id) &&
         this.props.isAuthenticated ? (
-          <Button onClick={this.onLikeClick}>Like</Button>
+          <Button onClick={this.onLikeClick} style={buttonStyle}>
+            Like
+          </Button>
         ) : this.props.isAuthenticated ? (
-          <Button onClick={this.onDislikeClick}>Dislike</Button>
+          <Button onClick={this.onDislikeClick} style={buttonStyle}>
+            Dislike
+          </Button>
         ) : null}
         {likes.length ? (
-          <Alert color='danger' style={badgeStyle}>
+          <Alert color='danger' style={buttonStyle}>
             Likes : {likes.length}
           </Alert>
         ) : null}
@@ -100,11 +110,19 @@ class PostItem extends Component {
 // const postStyle = {};
 
 const badgeStyle = {
-  padding: '0.4rem',
-  fontSize: '0.8rem',
+  // padding: '0.4rem',
+  // fontSize: '0.8rem',
   // color: 'black',
   float: 'right',
-  display: 'block'
+  display: 'block '
+};
+
+const buttonStyle = {
+  display: 'inline-block',
+  width: 'fit-content',
+  padding: '.375rem .75rem',
+  lineHeight: '1.5rem',
+  marginRight: '0.5rem'
 };
 
 const mapStateToProps = state => ({

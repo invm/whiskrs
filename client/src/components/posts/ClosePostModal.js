@@ -44,7 +44,7 @@ class PostModal extends Component {
         <Button
           className='remove-btn '
           color='danger'
-          size='sm'
+          // size='sm'
           onClick={this.toggle}>
           &times;
         </Button>

@@ -9,6 +9,9 @@ import {
   deletePost,
   setPostsLoading
 } from '../../actions/postActions';
+import { updateUser } from '../../actions/authActions';
+
+//TODO when going to personal profile from other profile, previous user passed to User component
 
 class Profile extends Component {
   constructor(props) {
@@ -37,6 +40,19 @@ class Profile extends Component {
         );
   }
 
+  onUpdateClick = user => {
+    console.log(user);
+    this.setState({
+      ...this.state,
+      loading: true
+    });
+    this.props.updateUser(user);
+    this.setState({
+      ...this.state,
+      loading: false
+    });
+  };
+
   render() {
     const { user, loading, msg } = this.state;
 
@@ -52,11 +68,17 @@ class Profile extends Component {
       );
     }
 
+    console.log(user);
+
     if (loading) return <Spinner />;
     else
       return (
         <div className='fade-in profile-page tc'>
-          {msg ? <h3>{msg}</h3> : <User user={user ? user : {}} />}
+          {msg ? (
+            <h3>{msg}</h3>
+          ) : (
+            <User onUpdateClick={this.onUpdateClick} user={user} />
+          )}
           <PostList
             loading={this.props.post.loading}
             setPostsLoading={this.props.setPostsLoading}
@@ -77,5 +99,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost, setPostsLoading }
+  { getPosts, deletePost, setPostsLoading, updateUser }
 )(Profile);

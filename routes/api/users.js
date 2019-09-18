@@ -18,8 +18,8 @@ router.get('/', (req, res) => {
     .then(items => res.json(items));
 });
 
-// @route GET api/users
-// @desc Get all users
+// @route GET api/user/:id
+// @desc Get user
 // @access public
 
 router.get('/user/:id', (req, res) => {
@@ -27,6 +27,25 @@ router.get('/user/:id', (req, res) => {
     .select('-password')
     .then(item => res.json(item))
     .catch(err => res.status(404).json({ success: false }));
+});
+
+// @route GET api/users
+// @desc Get all users
+// @access no
+
+router.put('/user/:id', (req, res) => {
+  console.log(req);
+  User.findByIdAndUpdate(
+    { _id: req.params.id },
+    {
+      name: req.body.name,
+      email: req.body.email,
+      catName: req.body.catName
+    },
+    { useFindAndModify: false }
+  )
+    .then(() => res.json({ success: true }))
+    .catch(err => res.status(404).json({ success: false, err }));
 });
 
 // @route POST api/users
@@ -85,10 +104,10 @@ router.post('/', (req, res) => {
 // @desc Delete a user
 // @access public // should be private with auth
 
-router.delete('/:id', (req, res) => {
-  User.findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({ success: true })))
-    .catch(err => res.status(404).json({ success: false }));
-});
+// router.delete('/:id', (req, res) => {
+//   User.findById(req.params.id)
+//     .then(item => item.remove().then(() => res.json({ success: true })))
+//     .catch(err => res.status(404).json({ success: false }));
+// });
 
 module.exports = router;

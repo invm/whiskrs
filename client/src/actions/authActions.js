@@ -119,3 +119,27 @@ export const tokenConfig = getState => {
 
   return config;
 };
+
+export const updateUser = ({ _id, name, email, catName }) => dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({ name, email, catName });
+
+  axios
+    .put(`/api/users/user/${_id}`, body, config)
+    .then(res =>
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(error =>
+      console.log(
+        error || {}.response || {}.data,
+        error || {}.response || {}.status
+      )
+    );
+};

@@ -14,14 +14,25 @@ import {
 
 class User extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       modal: false,
-      _id: props.user._id ? props.user._id : '',
-      name: props.user.name ? props.user.name : '',
-      email: props.user.email ? props.user.email : '',
-      catName: props.user.catName ? props.user.catName : ''
+      _id: props.user._id,
+      name: props.user.name,
+      email: props.user.email,
+      catName: props.user.catName
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      _id: this.props.user._id,
+      name: this.props.user.name,
+      email: this.props.user.email,
+      catName: this.props.user.catName
+    });
   }
 
   toggle = () => {
@@ -33,6 +44,7 @@ class User extends Component {
 
   onChange = e => {
     this.setState({
+      ...this.state,
       [e.target.name]: e.target.value
     });
     this.handleValidation(e);
@@ -79,98 +91,108 @@ class User extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
+    this.props.onUpdateClick({
+      _id: this.state._id,
+      name: this.state.name || this.props.user.name,
+      catName: this.state.catName || this.props.user.catName,
+      email: this.state.email || this.props.user.email
+    });
     this.toggle();
   };
 
   render() {
-    const { name, catName, email } = this.props.user;
+    const { name, catName, email, _id } = this.props.user;
     return (
-      <div className='card'>
+      <div className='card' style={{ textAlign: 'center' }}>
         <h1>{name}</h1>
         <h2>{catName}</h2>
         <h3>{email}</h3>
-        {this.props.isAuthenticated && (
-          /* this.props.user._id === this.props.loggedIn ? */ <div
-            style={{ display: 'inline' }}>
-            <Button
-              className='my-4'
-              color='dark'
-              style={{ marginBottom: '2rem' }}
-              onClick={this.toggle}>
-              Update Profile
-            </Button>
-            <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader toggle={this.toggle}>Register</ModalHeader>
-              <ModalBody>
-                {this.state.msg ? (
-                  <Alert color='danger'>{this.state.msg}</Alert>
-                ) : null}
-                <Form
-                  onSubmit={this.onSubmit}
-                  action='update-profile'
-                  className='register-form tc fade-in'>
-                  <FormGroup>
-                    <Label htmlFor='name'>Name</Label>
-                    <Input
-                      value={this.state.name}
-                      type='text'
-                      name='name'
-                      id='name'
-                      onChange={this.onChange}
-                    />
-                    <Alert color='secondary' className='hidden' id='name-alert'>
-                      Must be at least 6 characters
-                    </Alert>
-                    <Label htmlFor='email'>Email</Label>
-                    <Input
-                      value={this.state.email}
-                      name='email'
-                      type='email'
-                      id='email'
-                      onChange={this.onChange}
-                    />
-                    <Alert
-                      color='secondary'
-                      className='hidden'
-                      id='email-alert'>
-                      Must be a valid email
-                    </Alert>
-                    <Label htmlFor='catName'>Cat Name</Label>
-                    <Input
-                      value={this.state.catName}
-                      name='catName'
-                      type='text'
-                      id='cat-name'
-                      onChange={this.onChange}
-                    />
-                    <Alert
-                      color='secondary'
-                      className='hidden'
-                      id='cat-name-alert'>
-                      Must be at least 3 characters
-                    </Alert>
-                    <Button
-                      className='my-4'
-                      block
-                      color='dark'
-                      style={{ marginBottom: '2rem' }}
-                      type='submit'>
-                      Update
-                    </Button>
-                  </FormGroup>
-                </Form>
-              </ModalBody>
-            </Modal>
-          </div>
-        ) /* : null */}
+        {this.props.isAuthenticated &&
+          (this.props.loggedInUser._id === _id && (
+            <div style={{ display: 'inline' }}>
+              <Button
+                className='my-4'
+                color='dark'
+                style={{ marginBottom: '2rem' }}
+                onClick={this.toggle}>
+                Update Profile
+              </Button>
+              <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Register</ModalHeader>
+                <ModalBody>
+                  {this.state.msg ? (
+                    <Alert color='danger'>{this.state.msg}</Alert>
+                  ) : null}
+                  <Form
+                    onSubmit={this.onSubmit}
+                    action='update-profile'
+                    className='register-form tc fade-in'>
+                    <FormGroup>
+                      <Label htmlFor='name'>Name</Label>
+                      <Input
+                        value={this.state.name}
+                        type='text'
+                        name='name'
+                        id='name'
+                        onChange={this.onChange}
+                      />
+                      <Alert
+                        color='secondary'
+                        className='hidden'
+                        id='name-alert'>
+                        Must be at least 3 characters
+                      </Alert>
+                      <Label htmlFor='email'>Email</Label>
+                      <Input
+                        value={this.state.email}
+                        name='email'
+                        type='email'
+                        id='email'
+                        onChange={this.onChange}
+                      />
+                      <Alert
+                        color='secondary'
+                        className='hidden'
+                        id='email-alert'>
+                        Must be a valid email
+                      </Alert>
+                      <Label htmlFor='catName'>Cat Name</Label>
+                      <Input
+                        value={this.state.catName}
+                        name='catName'
+                        type='text'
+                        id='cat-name'
+                        onChange={this.onChange}
+                      />
+                      <Alert
+                        color='secondary'
+                        className='hidden'
+                        id='cat-name-alert'>
+                        Must be at least 3 characters
+                      </Alert>
+                      <Button
+                        className='my-4'
+                        block
+                        color='dark'
+                        style={{ marginBottom: '2rem' }}
+                        type='submit'>
+                        Update
+                      </Button>
+                    </FormGroup>
+                  </Form>
+                </ModalBody>
+              </Modal>
+            </div>
+          ))}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-  // loggedIn: state.auth.user._id || ''
+  isAuthenticated: state.auth.isAuthenticated,
+  loggedInUser: state.auth.user
 });
 
 export default connect(
