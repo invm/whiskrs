@@ -64,6 +64,10 @@ ul {
   list-style: none;
 }
 
+i {
+  margin: 0.25rem;
+}
+
 .fade-in {
   -webkit-transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -136,7 +140,7 @@ ul {
 }
 
 .brand-image {
-  background: url('./components/pages/cat1.jpg');
+  background: url('./components/pages/cat1.webp');
   height: 500px;
   width: 100%;
   background-position: center;
@@ -205,39 +209,192 @@ ul {
 .my-1.rounded.list-group-item {
   min-height: 100px;
 }
-/*# sourceMappingURL=App.css.map */
-
 li {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .grid {
+  display: -ms-grid;
   display: grid;
-  grid-template-areas:
-    'main main main right right';
+  grid-template-areas: 'main main main right right';
   grid-gap: 10px;
 }
 
 .sidebar {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 2;
   grid-area: right;
 }
 
-.posts{
+.posts {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
   grid-area: main;
 }
 
-/* li p {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.post-image-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+.post-image {
+  padding: 1.25rem;
+  max-width: 100%;
+  max-height: 500px;
+  width: auto;
+}
+
+.flex-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.flex-page-element-1 {
+  flex-basis: 70%;
+  height: fit-content;
+}
+.flex-page-element-1 {
+  flex-basis: 30%;
   height: fit-content;
 }
 
-li:hover p {
-  transition: 2s ease-in-out;
-  white-space: normal;
-  height: auto;
+#boy {
+  background: url('/uploads/png/boy.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+#boy1 {
+  background: url('/uploads/png/boy1.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+#girl {
+  background: url('/uploads/png/girl.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+#girl1 {
+  background: url('/uploads/png/girl1.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+#man {
+  background: url('/uploads/png/man.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+#man1 {
+  background: url('/uploads/png/man1.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+#man2 {
+  background: url('/uploads/png/man2.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+#woman {
+  background: url('/uploads/png/woman.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+#woman1 {
+  background: url('/uploads/png/woman1.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.trigger {
+  display: none;
+}
+
+.checker {
+  background-position: left center;
+  background-size: auto 100%;
+  width: 60px;
+  min-height: 60px;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.trigger:checked + .checker {
+  background-position: right center;
+  border: 5px solid #0077ff;
+}
+
+.avatar-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.user-avatar {
+  width: 10vw;
+  margin: 0.25rem;
+}
+
+#user {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  padding: 0.4rem;
+}
+
+.user-header {
+  font-size: 2.8vw !important;
   white-space: nowrap;
-  overflow: auto;
-  text-overflow: none;
-} */
+}
+.user-header-2 {
+  font-size: 2vw !important;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 767px) {
+  .flex-page {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flex-page-element-1 {
+    flex-basis: 70%;
+    width: 100%;
+  }
+  .flex-page-element-1 {
+    flex-basis: 30%;
+    width: 100%;
+  }
+  .user-header {
+    font-size: 5vw !important;
+  }
+  .user-header-2 {
+    font-size: 4vw !important;
+  }
+  .user-avatar {
+    width: 20vw;
+  }
+}
+/*# sourceMappingURL=App.css.map */

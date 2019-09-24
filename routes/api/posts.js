@@ -15,14 +15,14 @@ const storage = multer.diskStorage({
 
 // Filter by mimetype
 const fileFilter = (req, file, cb) => {
-  // reject a file
+  // accept
   if (
     file.mimetype === 'image/jpeg' ||
     file.mimetype === 'image/png' ||
     file.mimetype === 'image/jpg'
   )
     cb(null, true);
-  // accept
+  // reject a file
   else cb(null, false);
 };
 
@@ -51,8 +51,7 @@ router.get('/', (req, res) => {
 // @route POST api/posts
 // @desc Create a post
 // @access Private
-router.post('/', /* auth, */ upload.single('productImage'), (req, res) => {
-  console.log(req);
+router.post('/', auth, upload.single('postImage'), (req, res) => {
   const post = new Post({
     userId: req.body.userId,
     body: req.body.body,

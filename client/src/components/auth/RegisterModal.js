@@ -23,6 +23,7 @@ class RegisterModal extends Component {
     email: '',
     password: '',
     catName: '',
+    avatar: '',
     msg: null
   };
 
@@ -56,22 +57,31 @@ class RegisterModal extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { name, email, password, catName } = this.state;
+    const { name, email, password, catName, avatar } = this.state;
 
     const newUser = {
       name,
       email,
       password,
-      catName
+      catName,
+      avatar
     };
     //Attempt to register
     this.props.register(newUser);
   };
   onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-    this.handleValidation(e);
+    if (e.target.name === 'avatar') {
+      const id = e.target.id.split('-');
+      this.setState({
+        ...this.state,
+        avatar: id[0]
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+      this.handleValidation(e);
+    }
   };
 
   toggle = () => {
@@ -127,7 +137,8 @@ class RegisterModal extends Component {
           color='dark'
           href='#'
           //   style={{ marginBottom: '2rem' }}
-          onClick={this.toggle}>
+          onClick={this.toggle}
+        >
           Register
         </NavLink>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -139,7 +150,8 @@ class RegisterModal extends Component {
             <Form
               onSubmit={this.onSubmit}
               action='register'
-              className='register-form tc fade-in'>
+              className='register-form tc fade-in'
+            >
               <FormGroup>
                 <Label htmlFor='name'>Name</Label>
                 <Input
@@ -181,12 +193,131 @@ class RegisterModal extends Component {
                 <Alert color='secondary' className='hidden' id='cat-name-alert'>
                   Must be at least 3 characters
                 </Alert>
+                <div className='avatars'>
+                  <label htmlFor='avatars'>Choose user avatar:</label>
+                  <div className='avatar-row'>
+                    <input
+                      className='trigger'
+                      id='boy-input'
+                      name='avatar'
+                      type='radio'
+                      defaultChecked
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='boy-input'
+                      id='boy'
+                      className='checker'
+                    ></label>
+                    <input
+                      className='trigger'
+                      id='boy1-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='boy1-input'
+                      id='boy1'
+                      className='checker'
+                    ></label>
+                    <input
+                      className='trigger'
+                      id='girl-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='girl-input'
+                      id='girl'
+                      className='checker'
+                    ></label>
+                  </div>
+                  <div className='avatar-row'>
+                    <input
+                      className='trigger'
+                      id='woman-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='woman-input'
+                      id='woman'
+                      className='checker'
+                    ></label>
+                    <input
+                      className='trigger'
+                      id='man1-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='man1-input'
+                      id='man1'
+                      className='checker'
+                    ></label>
+                    <input
+                      className='trigger'
+                      id='girl1-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='girl1-input'
+                      id='girl1'
+                      className='checker'
+                    ></label>
+                  </div>
+                  <div className='avatar-row'>
+                    <input
+                      className='trigger'
+                      id='man-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='man-input'
+                      id='man'
+                      className='checker'
+                    ></label>
+                    <input
+                      className='trigger'
+                      id='woman1-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='woman1-input'
+                      id='woman1'
+                      className='checker'
+                    ></label>
+                    <input
+                      className='trigger'
+                      id='man2-input'
+                      name='avatar'
+                      type='radio'
+                      onChange={this.onChange}
+                    />
+                    <label
+                      htmlFor='man2-input'
+                      id='man2'
+                      className='checker'
+                    ></label>
+                  </div>
+                </div>
                 <Button
                   className='my-4'
                   block
                   color='dark'
                   style={{ marginBottom: '2rem' }}
-                  type='submit'>
+                  type='submit'
+                >
                   Register
                 </Button>
               </FormGroup>

@@ -31,8 +31,25 @@ export const getPosts = () => dispatch => {
 };
 
 export const addPost = post => (dispatch, getState) => {
+  const tokenConfigLocal = getState => {
+    const token = getState().auth.token;
+    const config = {
+      headers: {
+        'Content-type': 'multipart/form-data'
+      }
+    };
+    if (token) {
+      config.headers['x-auth-token'] = token;
+    }
+    return config;
+  };
+  const formData = new FormData();
+  formData.set('body', post.body);
+  formData.append('name', post.name);
+  formData.append('userId', post.userId);
+  formData.append('postImage', post.postImage);
   axios
-    .post('/api/posts', post, tokenConfig(getState))
+    .post('/api/posts', formData, tokenConfigLocal(getState))
     .then(res =>
       dispatch({
         type: ADD_POST,

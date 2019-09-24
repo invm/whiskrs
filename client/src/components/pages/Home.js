@@ -23,25 +23,25 @@ class Home extends Component {
     const posts = this.props.post.posts;
     return (
       <Container className='fade-in'>
-        <div className='brand-image fade-in rounded'>
+        <div defer className='brand-image fade-in rounded'>
           <div className='text'>
             <h1>Whiskrs</h1>
             <p>A public sharing board for your cat moments</p>
             <p>Spread the joy or share the pain</p>
           </div>
         </div>
-        <div className='grid'>
-       <div className='posts'>
-        <PostModal />
-        <PostList
-          loading={this.props.post.loading}
-          posts={posts}
-          setPostsLoading={this.props.setPostsLoading}
-          deletePost={this.props.deletePost}
-          />
+        <div className='flex-page'>
+          <div className='posts'>
+            <PostModal />
+            <PostList
+              loading={this.props.post.loading}
+              posts={posts}
+              setPostsLoading={this.props.setPostsLoading}
+              deletePost={this.props.deletePost}
+            />
           </div>
           <Sidebar />
-          </div>
+        </div>
       </Container>
     );
   }

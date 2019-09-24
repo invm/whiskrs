@@ -27,10 +27,7 @@ class PostItem extends Component {
   }
 
   onLikeClick = e => {
-    if (
-      !this.state.likes.includes(this.props.user._id) &&
-      !this.props.likes.includes(this.props.user._id)
-    ) {
+    if (!this.state.likes.includes(this.props.user._id)) {
       const userId = this.props.user._id;
       const postId = this.state._id;
       this.props.likePost(userId, postId);
@@ -77,7 +74,7 @@ class PostItem extends Component {
             <Button
               disabled
               color='dark'
-              style={(badgeStyle, { padding: '0 0.25rem' })}
+              style={(badgeStyle, { padding: '0 0.25rem', float: 'right' })}
             >
               {`${postDate.getHours()}:${
                 postDate.getMinutes() <= 9
@@ -97,22 +94,34 @@ class PostItem extends Component {
         </Alert>
 
         <p>{body}</p>
+        <div className='post-image-container'>
+          {postImage ? (
+            <img src={`/${postImage}`} className='post-image' alt={body} />
+          ) : null}
+        </div>
         {!this.state.likes.includes(this.props.user._id) &&
         this.props.isAuthenticated ? (
-          <Button onClick={this.onLikeClick} style={buttonStyle}>
+          <Button
+            className='my-2'
+            onClick={this.onLikeClick}
+            style={buttonStyle}
+          >
             Like
           </Button>
         ) : this.props.isAuthenticated ? (
-          <Button onClick={this.onDislikeClick} style={buttonStyle}>
+          <Button
+            className='my-2'
+            onClick={this.onDislikeClick}
+            style={buttonStyle}
+          >
             Dislike
           </Button>
         ) : null}
         {likes.length ? (
-          <Alert color='danger' style={buttonStyle}>
+          <Alert color='danger' className='my-2' style={buttonStyle}>
             Likes : {likes.length}
           </Alert>
         ) : null}
-        {postImage ? <img src={postImage} alt={body} /> : null}
       </ListGroupItem>
     );
   }

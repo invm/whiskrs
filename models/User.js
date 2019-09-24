@@ -19,8 +19,9 @@ const UserSchema = new Schema({
   catName: {
     type: String
   },
-  userImage: {
-    type: String
+  avatar: {
+    type: String,
+    required: true
   }
 });
 

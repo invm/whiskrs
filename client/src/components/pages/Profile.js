@@ -10,6 +10,7 @@ import {
   setPostsLoading
 } from '../../actions/postActions';
 import { updateUser } from '../../actions/authActions';
+import { Sidebar } from '../layout';
 
 //TODO when going to personal profile from other profile, previous user passed to User component
 
@@ -76,13 +77,16 @@ class Profile extends Component {
           ) : (
             <User onUpdateClick={this.onUpdateClick} user={user} />
           )}
-          <PostList
-            loading={this.props.post.loading}
-            setPostsLoading={this.props.setPostsLoading}
-            deletePost={this.props.deletePost}
-            posts={this.props.post.posts}
-            user={user ? user : ''}
-          />
+          <div className='flex-page'>
+            <PostList
+              loading={this.props.post.loading}
+              setPostsLoading={this.props.setPostsLoading}
+              deletePost={this.props.deletePost}
+              posts={this.props.post.posts}
+              user={user ? user : ''}
+            />
+            <Sidebar />
+          </div>
         </div>
       );
   }

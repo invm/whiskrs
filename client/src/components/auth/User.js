@@ -30,7 +30,8 @@ class User extends Component {
       _id: this.props.user._id,
       name: this.props.user.name,
       email: this.props.user.email,
-      catName: this.props.user.catName
+      catName: this.props.user.catName,
+      avatar: this.props.user.avatar
     });
   }
 
@@ -101,89 +102,117 @@ class User extends Component {
   };
 
   render() {
-    const { name, catName, email, _id } = this.props.user;
+    const { name, catName, email, _id, avatar } = this.props.user;
     return (
-      <div className='card' style={{ textAlign: 'center' }}>
-        <h1>{name}</h1>
-        <h2>{catName}</h2>
-        <h3>{email}</h3>
-        {this.props.isAuthenticated &&
-          (this.props.loggedInUser._id === _id && (
-            <div style={{ display: 'inline' }}>
-              <Button
-                className='my-4'
-                color='dark'
-                style={{ marginBottom: '2rem' }}
-                onClick={this.toggle}>
-                Update Profile
-              </Button>
-              <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                <ModalHeader toggle={this.toggle}>Register</ModalHeader>
-                <ModalBody>
-                  {this.state.msg ? (
-                    <Alert color='danger'>{this.state.msg}</Alert>
-                  ) : null}
-                  <Form
-                    onSubmit={this.onSubmit}
-                    action='update-profile'
-                    className='register-form tc fade-in'>
-                    <FormGroup>
-                      <Label htmlFor='name'>Name</Label>
-                      <Input
-                        value={this.state.name}
-                        type='text'
-                        name='name'
-                        id='name'
-                        onChange={this.onChange}
-                      />
-                      <Alert
-                        color='secondary'
-                        className='hidden'
-                        id='name-alert'>
-                        Must be at least 3 characters
-                      </Alert>
-                      <Label htmlFor='email'>Email</Label>
-                      <Input
-                        value={this.state.email}
-                        name='email'
-                        type='email'
-                        id='email'
-                        onChange={this.onChange}
-                      />
-                      <Alert
-                        color='secondary'
-                        className='hidden'
-                        id='email-alert'>
-                        Must be a valid email
-                      </Alert>
-                      <Label htmlFor='catName'>Cat Name</Label>
-                      <Input
-                        value={this.state.catName}
-                        name='catName'
-                        type='text'
-                        id='cat-name'
-                        onChange={this.onChange}
-                      />
-                      <Alert
-                        color='secondary'
-                        className='hidden'
-                        id='cat-name-alert'>
-                        Must be at least 3 characters
-                      </Alert>
-                      <Button
-                        className='my-4'
-                        block
-                        color='dark'
-                        style={{ marginBottom: '2rem' }}
-                        type='submit'>
-                        Update
-                      </Button>
-                    </FormGroup>
-                  </Form>
-                </ModalBody>
-              </Modal>
-            </div>
-          ))}
+      <div
+        className='card'
+        id='user'
+        style={{ textAlign: 'center', fontSize: '1rem' }}
+      >
+        {avatar && (
+          <img
+            className='user-avatar'
+            src={`/uploads/png/${avatar}.png`}
+            alt={name}
+          />
+        )}
+        <div>
+          <h1 className='user-header'>
+            <i className='fas fa-user '></i>
+            {name}
+          </h1>
+          <h2 className='user-header-2'>
+            <i className='fa fa-cat '></i>
+            {catName}
+          </h2>
+          <h3 className='user-header-2'>
+            <i className='far fa-envelope '></i>
+            {email}
+          </h3>
+          {this.props.isAuthenticated &&
+            (this.props.loggedInUser._id === _id && (
+              <div style={{ display: 'inline' }}>
+                <Button
+                  className='my-4'
+                  color='dark'
+                  style={{ marginBottom: '2rem' }}
+                  onClick={this.toggle}
+                >
+                  Update Profile
+                </Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                  <ModalHeader toggle={this.toggle}>Register</ModalHeader>
+                  <ModalBody>
+                    {this.state.msg ? (
+                      <Alert color='danger'>{this.state.msg}</Alert>
+                    ) : null}
+                    <Form
+                      onSubmit={this.onSubmit}
+                      action='update-profile'
+                      className='register-form tc fade-in'
+                    >
+                      <FormGroup>
+                        <Label htmlFor='name'>Name</Label>
+                        <Input
+                          value={this.state.name}
+                          type='text'
+                          name='name'
+                          id='name'
+                          onChange={this.onChange}
+                        />
+                        <Alert
+                          color='secondary'
+                          className='hidden'
+                          id='name-alert'
+                        >
+                          Must be at least 3 characters
+                        </Alert>
+                        <Label htmlFor='email'>Email</Label>
+                        <Input
+                          value={this.state.email}
+                          name='email'
+                          type='email'
+                          id='email'
+                          onChange={this.onChange}
+                        />
+                        <Alert
+                          color='secondary'
+                          className='hidden'
+                          id='email-alert'
+                        >
+                          Must be a valid email
+                        </Alert>
+                        <Label htmlFor='catName'>Cat Name</Label>
+                        <Input
+                          value={this.state.catName}
+                          name='catName'
+                          type='text'
+                          id='cat-name'
+                          onChange={this.onChange}
+                        />
+                        <Alert
+                          color='secondary'
+                          className='hidden'
+                          id='cat-name-alert'
+                        >
+                          Must be at least 3 characters
+                        </Alert>
+                        <Button
+                          className='my-4'
+                          block
+                          color='dark'
+                          style={{ marginBottom: '2rem' }}
+                          type='submit'
+                        >
+                          Update
+                        </Button>
+                      </FormGroup>
+                    </Form>
+                  </ModalBody>
+                </Modal>
+              </div>
+            ))}
+        </div>
       </div>
     );
   }

@@ -34,7 +34,6 @@ router.get('/user/:id', (req, res) => {
 // @access no
 
 router.put('/user/:id', (req, res) => {
-  console.log(req);
   User.findByIdAndUpdate(
     { _id: req.params.id },
     {
@@ -53,7 +52,7 @@ router.put('/user/:id', (req, res) => {
 // @access public // should be private with auth
 
 router.post('/', (req, res) => {
-  const { name, email, password, catName } = req.body;
+  const { name, email, password, catName, avatar } = req.body;
   // Validation
 
   if (!name || !email || !password)
@@ -69,7 +68,8 @@ router.post('/', (req, res) => {
       name,
       email,
       password,
-      catName
+      catName,
+      avatar
     });
     // Create salt and hash
     bcrypt.genSalt(10, (err, salt) => {
@@ -87,9 +87,10 @@ router.post('/', (req, res) => {
               res.json({
                 token,
                 user: {
-                  id: user.id,
+                  _id: user.id,
                   name: user.name,
-                  email: user.email
+                  email: user.email,
+                  avatar: user.avatar
                 }
               });
             }

@@ -27,7 +27,12 @@ export const loadUser = () => (dispatch, getState) => {
       })
     )
     .catch(err => {
-      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch(
+        returnErrors(
+          err || {}.response || {}.data,
+          err || {}.response || {}.status
+        )
+      );
       dispatch({
         type: AUTH_ERROR
       });
@@ -35,7 +40,13 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // Register User
-export const register = ({ name, email, password, catName }) => dispatch => {
+export const register = ({
+  name,
+  email,
+  password,
+  catName,
+  avatar
+}) => dispatch => {
   // Headers
   const config = {
     headers: {
@@ -44,7 +55,7 @@ export const register = ({ name, email, password, catName }) => dispatch => {
   };
 
   // Request body
-  const body = JSON.stringify({ name, email, password, catName });
+  const body = JSON.stringify({ name, email, password, catName, avatar });
 
   axios
     .post('/api/users', body, config)
@@ -56,7 +67,11 @@ export const register = ({ name, email, password, catName }) => dispatch => {
     )
     .catch(err => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
+        returnErrors(
+          err || {}.response || {}.data,
+          err || {}.response || {}.status,
+          'REGISTER_FAIL'
+        )
       );
       dispatch({
         type: REGISTER_FAIL
@@ -86,7 +101,11 @@ export const login = ({ email, password }) => dispatch => {
     )
     .catch(err => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+        returnErrors(
+          err.response.data || {},
+          err.response.status || {},
+          'LOGIN_FAIL'
+        )
       );
       dispatch({
         type: LOGIN_FAIL
@@ -146,16 +165,18 @@ export const updateUser = ({ _id, name, email, catName }) => dispatch => {
 };
 
 export const loadUsers = () => dispatch => {
-  axios.get('/api/users')
-    .then(res => 
+  axios
+    .get('/api/users')
+    .then(res =>
       dispatch({
-        type:USERS_LOADED,
+        type: USERS_LOADED,
         payload: res.data
       })
-    ).catch(error =>
+    )
+    .catch(error => {
       console.log(
         error || {}.response || {}.data,
         error || {}.response || {}.status
-      )
-    );
-}
+      );
+    });
+};
