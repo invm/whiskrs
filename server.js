@@ -19,6 +19,20 @@ mongoose
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/uploads', express.static('uploads'));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Can put only my url instead of *
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept , Authorization'
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
+    return res.status(200).json({ message: 'GET, PUT, POST, DELETE, PATCH' });
+  }
+  next();
+});
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {

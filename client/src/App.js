@@ -9,7 +9,7 @@ import { loadUser } from './actions/authActions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { AppNavbar, Sidebar } from './components/layout';
+import { AppNavbar } from './components/layout';
 import { Home, NotFound, Profile } from './components/pages/';
 
 class App extends Component {
@@ -32,7 +32,6 @@ class App extends Component {
               />
               <Route component={NotFound} />
             </Switch>
-            <Sidebar />
           </Container>
         </Router>
       </Provider>

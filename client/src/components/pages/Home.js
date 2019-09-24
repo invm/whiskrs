@@ -8,6 +8,7 @@ import {
   deletePost,
   setPostsLoading
 } from '../../actions/postActions';
+import Sidebar from '../layout/Sidebar';
 
 class Home extends Component {
   state = {
@@ -29,13 +30,18 @@ class Home extends Component {
             <p>Spread the joy or share the pain</p>
           </div>
         </div>
+        <div className='grid'>
+       <div className='posts'>
         <PostModal />
         <PostList
           loading={this.props.post.loading}
           posts={posts}
           setPostsLoading={this.props.setPostsLoading}
           deletePost={this.props.deletePost}
-        />
+          />
+          </div>
+          <Sidebar />
+          </div>
       </Container>
     );
   }

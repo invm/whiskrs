@@ -14,7 +14,6 @@ import {
 
 class User extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       modal: false,

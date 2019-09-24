@@ -43,7 +43,7 @@ const PostList = props => {
               return post;
             return null;
           })
-          .map(({ userId, _id, body, date, name, likes }) => (
+          .map(({ userId, _id, body, date, name, likes, postImage }) => (
             <PostItem
               key={_id}
               _id={_id}
@@ -51,6 +51,7 @@ const PostList = props => {
               date={date}
               userId={userId}
               name={name}
+              postImage={postImage}
               likes={likes}
               removePost={() => onDeleteClick(_id)}
             />
@@ -76,13 +77,14 @@ const PostList = props => {
               return post;
             return null;
           })
-          .map(({ userId, _id, body, date, name, likes }) => (
+          .map(({ userId, _id, body, date, name, likes, postImage }) => (
             <PostItem
               key={_id}
               _id={_id}
               body={body}
               date={date}
               likes={likes}
+              postImage={postImage}
               userId={userId}
               name={name}
               removePost={() => onDeleteClick(_id)}

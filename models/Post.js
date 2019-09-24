@@ -19,6 +19,9 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  postImage: {
+    type: String
+  },
   likes: {
     type: Array,
     default: []

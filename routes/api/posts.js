@@ -1,6 +1,38 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const multer = require('multer');
+
+// Where to store uploads
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+// Filter by mimetype
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (
+    file.mimetype === 'image/jpeg' ||
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg'
+  )
+    cb(null, true);
+  // accept
+  else cb(null, false);
+};
+
+const upload = multer({
+  storage, // Where to store
+  limits: {
+    fileSize: 1024 * 1024 * 5 // Limit to 5 mbs
+  },
+  fileFilter: fileFilter // Apply filter
+});
 
 // Post model
 
@@ -19,14 +51,23 @@ router.get('/', (req, res) => {
 // @route POST api/posts
 // @desc Create a post
 // @access Private
-router.post('/', auth, (req, res) => {
+router.post('/', /* auth, */ upload.single('productImage'), (req, res) => {
+  console.log(req);
   const post = new Post({
     userId: req.body.userId,
     body: req.body.body,
     name: req.body.name,
-    likes: []
+    likes: [],
+    postImage: req.file.path
   });
-  post.save().then(item => res.json(item));
+  post
+    .save()
+    .then(item => res.json(item))
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
 });
 
 // @route DELETE api/posts:id

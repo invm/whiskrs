@@ -21,7 +21,8 @@ class PostItem extends Component {
       removePost: props.removePost,
       userId: props.userId,
       name: props.name,
-      likes: props.likes
+      likes: props.likes,
+      postImage: props.postImage
     };
   }
 
@@ -43,7 +44,6 @@ class PostItem extends Component {
   onDislikeClick = e => {
     const userId = this.props.user._id;
     const postId = this.state._id;
-    console.log(userId);
     this.props.dislikePost(userId, postId);
     this.setState({
       ...this.state,
@@ -52,7 +52,15 @@ class PostItem extends Component {
   };
 
   render() {
-    const { _id, body, removePost, userId, name, likes } = this.state;
+    const {
+      _id,
+      body,
+      removePost,
+      userId,
+      name,
+      likes,
+      postImage
+    } = this.state;
     let postDate = new Date(this.state.date);
     return (
       <ListGroupItem className='my-1 rounded card'>
@@ -69,7 +77,8 @@ class PostItem extends Component {
             <Button
               disabled
               color='dark'
-              style={(badgeStyle, { padding: '0 0.25rem' })}>
+              style={(badgeStyle, { padding: '0 0.25rem' })}
+            >
               {`${postDate.getHours()}:${
                 postDate.getMinutes() <= 9
                   ? `0${postDate.getMinutes()}`
@@ -80,7 +89,8 @@ class PostItem extends Component {
             <Button
               disabled
               color='dark'
-              style={(badgeStyle, { padding: '0 0.25rem', float: 'right' })}>
+              style={(badgeStyle, { padding: '0 0.25rem', float: 'right' })}
+            >
               {postDate.toLocaleDateString()}
             </Button>
           )}
@@ -102,6 +112,7 @@ class PostItem extends Component {
             Likes : {likes.length}
           </Alert>
         ) : null}
+        {postImage ? <img src={postImage} alt={body} /> : null}
       </ListGroupItem>
     );
   }

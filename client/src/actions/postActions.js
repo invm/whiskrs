@@ -14,12 +14,12 @@ export const getPosts = () => dispatch => {
   dispatch(setPostsLoading());
   axios
     .get('/api/posts')
-    .then(response =>
-      dispatch({
+    .then(response => {
+      return dispatch({
         type: GET_POSTS,
         payload: response.data
-      })
-    )
+      });
+    })
     .catch(error =>
       dispatch(
         returnErrors(

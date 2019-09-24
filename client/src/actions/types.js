@@ -6,6 +6,7 @@ export const DISLIKE_POST = 'DISLIKE_POST';
 export const POSTS_LOADING = 'POSTS_LOADING';
 export const USER_LOADING = 'USER_LOADING';
 export const USER_LOADED = 'USER_LOADED';
+export const USERS_LOADED = 'USERS_LOADED'
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';

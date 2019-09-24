@@ -41,7 +41,6 @@ class Profile extends Component {
   }
 
   onUpdateClick = user => {
-    console.log(user);
     this.setState({
       ...this.state,
       loading: true
@@ -67,8 +66,6 @@ class Profile extends Component {
         })
       );
     }
-
-    console.log(user);
 
     if (loading) return <Spinner />;
     else

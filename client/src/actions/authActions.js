@@ -9,7 +9,8 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  USERS_LOADED
 } from './types';
 
 // Check token & load user
@@ -143,3 +144,18 @@ export const updateUser = ({ _id, name, email, catName }) => dispatch => {
       )
     );
 };
+
+export const loadUsers = () => dispatch => {
+  axios.get('/api/users')
+    .then(res => 
+      dispatch({
+        type:USERS_LOADED,
+        payload: res.data
+      })
+    ).catch(error =>
+      console.log(
+        error || {}.response || {}.data,
+        error || {}.response || {}.status
+      )
+    );
+}
