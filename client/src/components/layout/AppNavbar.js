@@ -38,7 +38,8 @@ class AppNavbar extends Component {
         <NavItem>
           <Link
             to={`/profile/${user ? user._id : null}`}
-            className='navbar-text mr-3 nav-link'>
+            className='navbar-text mr-3 nav-link'
+          >
             <strong>{user ? `Welcome ${user.name}` : ''}</strong>
           </Link>
         </NavItem>
@@ -68,7 +69,7 @@ class AppNavbar extends Component {
             </Link>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className='ml-auto' navbar>
+              <Nav className='ml-auto' navbar style={{ fontSize: '1.2rem' }}>
                 {isAuthenticated ? authLinks : guestLinks}
                 <NavItem>
                   <NavLink href='https://github.com/invm/whiskrs'>

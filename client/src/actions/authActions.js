@@ -102,8 +102,8 @@ export const login = ({ email, password }) => dispatch => {
     .catch(err => {
       dispatch(
         returnErrors(
-          err.response.data || {},
-          err.response.status || {},
+          err || {}.response || {}.data,
+          err || {}.response || {}.status,
           'LOGIN_FAIL'
         )
       );

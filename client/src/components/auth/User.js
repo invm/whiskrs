@@ -102,13 +102,10 @@ class User extends Component {
   };
 
   render() {
+    const path = window.location.pathname;
     const { name, catName, email, _id, avatar } = this.props.user;
     return (
-      <div
-        className='card'
-        id='user'
-        style={{ textAlign: 'center', fontSize: '1rem' }}
-      >
+      <div className='card' id='user' style={{ textAlign: 'center' }}>
         {avatar && (
           <img
             className='user-avatar'
@@ -130,6 +127,7 @@ class User extends Component {
             {email}
           </h3>
           {this.props.isAuthenticated &&
+            path !== '/' &&
             (this.props.loggedInUser._id === _id && (
               <div style={{ display: 'inline' }}>
                 <Button

@@ -93,7 +93,7 @@ class PostItem extends Component {
           )}
         </Alert>
 
-        <p>{body}</p>
+        <p style={{ fontSize: '1.1rem' }}>{body}</p>
         <div className='post-image-container'>
           {postImage ? (
             <img src={`/${postImage}`} className='post-image' alt={body} />

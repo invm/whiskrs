@@ -57,7 +57,7 @@ router.post('/', auth, upload.single('postImage'), (req, res) => {
     body: req.body.body,
     name: req.body.name,
     likes: [],
-    postImage: req.file.path
+    postImage: req.file ? req.file.path : ''
   });
   post
     .save()
