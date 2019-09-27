@@ -23,7 +23,7 @@ class RegisterModal extends Component {
     email: '',
     password: '',
     catName: '',
-    avatar: '',
+    avatar: 'profile',
     msg: null
   };
 
@@ -198,17 +198,18 @@ class RegisterModal extends Component {
                   <div className='avatar-row'>
                     <input
                       className='trigger'
-                      id='boy-input'
+                      id='profile-input'
                       name='avatar'
                       type='radio'
                       defaultChecked
                       onChange={this.onChange}
                     />
                     <label
-                      htmlFor='boy-input'
-                      id='boy'
+                      htmlFor='profile-input'
+                      id='profile'
                       className='checker'
                     ></label>
+
                     <input
                       className='trigger'
                       id='boy1-input'
@@ -299,14 +300,14 @@ class RegisterModal extends Component {
                     ></label>
                     <input
                       className='trigger'
-                      id='man2-input'
+                      id='boy-input'
                       name='avatar'
                       type='radio'
                       onChange={this.onChange}
                     />
                     <label
-                      htmlFor='man2-input'
-                      id='man2'
+                      htmlFor='boy-input'
+                      id='boy'
                       className='checker'
                     ></label>
                   </div>

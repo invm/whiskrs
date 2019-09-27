@@ -132,10 +132,10 @@ i {
     linear,
     right top,
     left top,
-    from(var(--red)),
-    to(var(--warning))
+    from(var(--warning)),
+    to(var(--red))
   );
-  background: linear-gradient(to left, var(--red), var(--warning));
+  background: linear-gradient(to left, var(--warning), var(--red));
   color: white;
 }
 
@@ -303,8 +303,8 @@ li {
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
-#man2 {
-  background: url('/uploads/png/man2.png');
+#profile {
+  background: url('/uploads/png/profile.png');
   background-position: left center;
   background-size: auto 100%;
   background-repeat: no-repeat;
@@ -334,6 +334,12 @@ li {
   background-repeat: no-repeat;
   border-radius: 50%;
   cursor: pointer;
+}
+#github {
+  background: url('/client/public/GitHub-Mark-120px-plus.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
 }
 
 .trigger:checked + .checker {
@@ -398,3 +404,7 @@ li {
   }
 }
 /*# sourceMappingURL=App.css.map */
+
+.my-icon {
+  font-size: 3rem;
+}

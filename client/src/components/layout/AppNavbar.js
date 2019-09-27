@@ -65,7 +65,8 @@ class AppNavbar extends Component {
         <Navbar light expand='sm' className='mb-3 bg-gradient'>
           <Container>
             <Link to='/' className='navbar-brand'>
-              <i className='fa fa-cat fa-2x'></i>Whiskrs
+              <i className='fa fa-cat fa-2x'></i>
+              Whiskrs
             </Link>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
