@@ -1,6 +1,6 @@
 # Whiskrs Sharing Board
 
-[Whiskrs Sharing Board](https://arcane-lake-47559.herokuapp.com/)
+[Whiskrs Sharing Board](https://whiskrs.club/)
 
 ## Getting Started
 
